@@ -1,0 +1,29 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+  <h1>Author: {{ author }}</h1>
+
+  <!-- Display author image -->
+  {% if author.author_image %}
+    <img src="{{ author.author_image.url }}" alt="{{ author }} image" style="max-width:200px; max-height:300px;">
+  {% else %}
+    <p>No image available.</p>
+  {% endif %}
+
+  <p><strong>Date of Birth:</strong> {{ author.date_of_birth }}</p>
+  <p><strong>Date of Death:</strong> {{ author.date_of_death }}</p>
+
+  <!-- Delete button for authorized users -->
+  {% if perms.catalog.can_delete_author %}
+    <a href="{% url 'author_delete' author.pk %}" class="btn btn-danger">Delete Author</a>
+  {% endif %}
+
+<a href="{% url 'author_list' %}">Back to Author List</a>
+
+{% if author.book_set.count == 0 %}
+    <p>No Books Available</p>
+{% else %}
+    <!-- Display information about available books -->
+{% endif %}
+
+{% endblock %}
